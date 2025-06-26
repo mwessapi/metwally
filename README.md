@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>متولي الوصابي - مطور ومصمم محترف</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #4338ca;
+    --primary-light: #6366f1;
+    --primary-dark: #3730a3;
+    --accent: #8b5cf6;
+    --light: #e0e7ff;
+    --dark: #1e293b;
+    --gray: #4b5563;
+    --white: #ffffff;
+    --success: #10b981;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+    background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+    color: var(--dark);
+    line-height: 1.7;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+  }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(103, 58, 183, 0.1) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(67, 56, 202, 0.1) 0%, transparent 40%);
+    z-index: -1;
+  }
+  
+  /* شريط التقدم */
+  .progress-container {
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2000;
+  }
+  
+  .progress-bar {
+    height: 5px;
+    background: linear-gradient(to right, var(--accent), var(--primary));
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  /* شعار شخصي */
+  .personal-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--white);
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  
+  header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: var(--white);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(67, 56, 202, 0.4);
+    position: relative;
+    overflow: hidden;
+    padding-top: 5rem;
+  }
+  
+  header::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+      radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%),
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.05) 10px,
+        rgba(255,255,255,0.05) 20px
+      );
+    z-index: 0;
+    animation: rotate 60s linear infinite;
+  }
+  
+  header > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  nav {
+    background: rgba(99, 102, 241, 0.98);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 1rem;
+    box-shadow: inset 0 -2px 0 rgba(255,255,255,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+  }
+  
+  nav.scrolled {
+    padding: 0.7rem;
+    box-shadow: 0 4px 20px rgba(67, 56, 202, 0.3);
+  }
+  
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.7rem 1.4rem;
+    border-radius: 50px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.05rem;
+  }
+  
+  nav a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  
+  nav a:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav a:hover::before {
+    transform: translateX(0);
+  }
+  
+  nav a i {
+    font-size: 1.1rem;
+  }
+  
+  .hero {
+    position: relative;
+    text-align: center;
+    color: var(--white);
+    background: linear-gradient(rgba(67, 56, 202, 0.85), rgba(55, 48, 163, 0.9)), 
+                url('https://source.unsplash.com/1600x900/?technology,developer,code') no-repeat center/cover;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 0 1rem;
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 1rem;
+    max-width: 900px;
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  .hero h2 {
+    font-size: 3.8rem;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    line-height: 1.2;
+  }
+  
+  .hero p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 300;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  }
+  
+  .hero-quote {
+    font-style: italic;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-right: 3px solid var(--accent);
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 2rem auto 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--white);
+    padding: 1rem 2.8rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.2rem;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    margin-top: 1.5rem;
+    animation: pulse 2s infinite;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .cta-button:hover {
+    background: #7c3aed;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.6);
+    animation: none;
+  }
+  
+  .cta-button:hover::after {
+    transform: translateX(100%);
+  }
+  
+  .section {
+    padding: 5rem 1.5rem;
+    max-width: 1300px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid rgba(224, 231, 255, 0.6);
+  }
+  
+  .section:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(67, 56, 202, 0.18);
+  }
+  
+  .section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--primary), var(--accent));
+    transition: width 0.4s ease;
+  }
+  
+  .section:hover::before {
+    width: 8px;
+  }
+  
+  .section h2 {
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary-light);
+    padding-bottom: 0.8rem;
+    margin-bottom: 3rem;
+    font-size: 2.4rem;
+    position: relative;
+    display: inline-block;
+    padding-right: 1.5rem;
+    padding-left: 4rem;
+  }
+  
+  .section h2 i {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.3);
+  }
+  
+  .section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+    width: 50%;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  
+  .section:hover h2::after {
+    width: 100%;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.2rem;
+  }
+  
+  .card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    padding: 2.2rem 1.8rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
+    transition: var(--transition);
+    border: 1px solid rgba(224, 231, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  
+  .card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(to right, var(--primary), var(--accent));
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 35px rgba(99, 102, 241, 0.25);
+  }
+  
+  .card:hover::before {
+    transform: translateY(0);
+  }
+  
+  .card i {
+    font-size: 2.8rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    transition: var(--transition);
+    background: rgba(99, 102, 241, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card:hover i {
+    color: var(--accent);
+    transform: scale(1.1);
+    background: rgba(139, 92, 246, 0.15);
+  }
+  
+  .card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+  
+  .card h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  
+  .card:hover h3::after {
+    width: 80px;
+  }
+  
+  .card p {
+    color: var(--gray);
+    line-height: 1.8;
+    font-size: 1.05rem;
+  }
+  
+  .project-card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
+    transition: var(--transition);
+    position: relative;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  
+  .project-card.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  
+  .project-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  
+  .project-card .project-info {
+    padding: 1.8rem;
+  }
+  
+  .project-card h3 {
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+  
+  .project-card h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--accent);
+  }
+  
+  .project-card p {
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+  }
+  
+  .project-card .project-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 700;
+    gap: 8px;
+    transition: var(--transition);
+    font-size: 1.1rem;
+  }
+  
+  .project-card .project-link i {
+    transition: transform 0.3s ease;
+  }
+  
+  .project-card .project-link:hover {
+    color: var(--primary);
+  }
+  
+  .project-card .project-link:hover i {
+    transform: translateX(5px);
+  }
+  
+  .project-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 18px 35px rgba(99, 102, 241, 0.25);
+  }
+  
+  .project-card:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* نموذج الاتصال */
+  .contact-form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-top: 3rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .form-group {
+    margin-bottom: 1.8rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    transition: var(--transition);
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  }
+  
+  .form-group textarea {
+    min-height: 180px;
+    resize: vertical;
+  }
+  
+  .submit-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(67, 56, 202, 0.4);
+  }
+  
+  .submit-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(67, 56, 202, 0.5);
+  }
+  
+  .submit-btn:active {
+    transform: translateY(1px);
+  }
+  
+  footer {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    color: var(--white);
+    text-align: center;
+    padding: 4rem 1rem 2rem;
+    margin-top: 5rem;
+    position: relative;
+    overflow: hidden;
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+  }
+  
+  footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 40%);
+    z-index: 0;
+  }
+  
+  footer > * {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .footer-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 3rem;
+    text-align: right;
+    margin-bottom: 3rem;
+  }
+  
+  .footer-column h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.8rem;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.8rem;
+  }
+  
+  .footer-column h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  
+  .footer-column ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+  }
+  
+  .footer-column ul li i {
+    color: var(--accent);
+    font-size: 1.3rem;
+  }
+  
+  .copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 2rem;
+    margin-top: 2rem;
+    font-size: 1.05rem;
+    opacity: 0.9;
+  }
+  
+  button.lang-switch {
+    position: fixed;
+    top: 85px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--primary-light);
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(67, 56, 202, 0.4);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+  }
+  
+  button.lang-switch:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(67, 56, 202, 0.6);
+  }
+  
+  body.lang-en [lang="ar"] { display: none; }
+  body:not(.lang-en) [lang="en"] { display: none; }
+  
+  .social {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+  
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    margin: 0 12px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--primary);
+    font-size: 1.6rem;
+    transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .social a::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .social a i {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .social a:hover {
+    transform: translateY(-10px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.45);
+  }
+  
+  .social a:hover::after {
+    opacity: 1;
+  }
+  
+  .social a:hover i {
+    color: white;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  ul li {
+    margin-bottom: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+  
+  ul li i {
+    color: var(--primary);
+    font-size: 1.3rem;
+    min-width: 30px;
+    background: rgba(99, 102, 241, 0.1);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* قسم السيرة الذاتية الجديد */
+  .cv-section {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  
+  .cv-section h3 {
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .cv-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed #e0e0e0;
+  }
+  
+  .cv-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .cv-item h4 {
+    color: var(--primary-dark);
+    margin-bottom: 0.3rem;
+  }
+  
+  .cv-item .date {
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .cv-item p {
+    color: var(--gray);
+    line-height: 1.7;
+  }
+  
+  /* الخط الزمني */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+  }
+  
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: var(--primary-light);
+  }
+  
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -28px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.6);
+    }
+    70% {
+      box-shadow: 0 0 0 20px rgba(139, 92, 246, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    }
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .hero h2 {
+      font-size: 3.2rem;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+    }
+    
+    .section {
+      padding: 4rem 1.5rem;
+    }
+    
+    .grid {
+      gap: 1.8rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero {
+      height: 75vh;
+    }
+    
+    .hero h2 {
+      font-size: 2.6rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+    }
+    
+    .hero-quote {
+      font-size: 1.1rem;
+    }
+    
+    nav {
+      gap: 0.6rem;
+    }
+    
+    nav a {
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+    }
+    
+    .section {
+      padding: 3.5rem 1.2rem;
+    }
+    
+    .section h2 {
+      font-size: 2rem;
+      padding-left: 3.5rem;
+    }
+    
+    .section h2 i {
+      width: 40px;
+      height: 40px;
+      font-size: 1.3rem;
+    }
+    
+    .footer-content {
+      text-align: center;
+      gap: 2.5rem;
+    }
+    
+    .footer-column h3::after {
+      right: 50%;
+      transform: translateX(50%);
+    }
+    
+    .contact-form {
+      padding: 2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .hero h2 {
+      font-size: 2.2rem;
+    }
+    
+    .hero p {
+      font-size: 1.05rem;
+    }
+    
+    .cta-button {
+      padding: 0.9rem 2.2rem;
+      font-size: 1.05rem;
+    }
+    
+    .card {
+      padding: 1.8rem 1.5rem;
+    }
+    
+    button.lang-switch {
+      top: 75px;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+    }
+    
+    .personal-logo {
+      top: 15px;
+      left: 15px;
+      width: 45px;
+      height: 45px;
+      font-size: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<button class="lang-switch" onclick="toggleLanguage()">
+  <i class="fas fa-globe"></i> English
+</button>
+
+<div class="progress-container">
+  <div class="progress-bar" id="myBar"></div>
+</div>
+
+<div class="personal-logo">MW</div>
+
+<header>
+  <h1 lang="ar">متولي الوصابي</h1>
+  <h1 lang="en">Metwally Wessapi</h1>
+  <p lang="ar">مطور ومصمم محترف | خبير حلول رقمية</p>
+  <p lang="en">Professional Developer & Designer | Digital Solutions Expert</p>
+</header>
+
+<nav id="navbar">
+  <a href="#about" lang="ar"><i class="fas fa-user"></i> نبذة</a>
+  <a href="#cv" lang="ar"><i class="fas fa-graduation-cap"></i> السيرة الذاتية</a>
+  <a href="#skills" lang="ar"><i class="fas fa-laptop-code"></i> مهاراتي</a>
+  <a href="#services" lang="ar"><i class="fas fa-cogs"></i> خدماتي</a>
+  <a href="#projects" lang="ar"><i class="fas fa-project-diagram"></i> مشاريعي</a>
+  <a href="#contact" lang="ar"><i class="fas fa-envelope"></i> تواصل</a>
+
+  <a href="#about" lang="en"><i class="fas fa-user"></i> About</a>
+  <a href="#cv" lang="en"><i class="fas fa-graduation-cap"></i> CV</a>
+  <a href="#skills" lang="en"><i class="fas fa-laptop-code"></i> Skills</a>
+  <a href="#services" lang="en"><i class="fas fa-cogs"></i> Services</a>
+  <a href="#projects" lang="en"><i class="fas fa-project-diagram"></i> Projects</a>
+  <a href="#contact" lang="en"><i class="fas fa-envelope"></i> Contact</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2 lang="ar">تحويل الأفكار إلى واقع رقمي متميز</h2>
+    <p lang="ar">مطور ومصمم يمني شاب، أقدم حلولاً رقمية إبداعية تلبي احتياجات العصر</p>
+    
+    <h2 lang="en">Transforming Ideas into Outstanding Digital Reality</h2>
+    <p lang="en">A young Yemeni developer & designer, providing creative digital solutions for modern needs</p>
+    
+    <div class="hero-quote" lang="ar">
+      "الجودة ليست فعلًا، بل هي عادة. الإبداع يجعل المستحيل ممكنًا"
+    </div>
+    <div class="hero-quote" lang="en">
+      "Quality is not an act, it is a habit. Creativity makes the impossible possible"
+    </div>
+    
+    <a href="#contact" class="cta-button" lang="ar">ابدأ مشروعك معي الآن</a>
+    <a href="#contact" class="cta-button" lang="en">Start Your Project Now</a>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <h2 lang="ar"><i class="fas fa-user-circle"></i> من أنا؟</h2>
+  <h2 lang="en"><i class="fas fa-user-circle"></i> About Me</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <i class="fas fa-user-graduate"></i>
+      <h3 lang="ar">خبرة ومهارات</h3>
+      <p lang="ar">أنا متولي الوصابي، شاب يمني طموح من محافظة ذمار، أعمل كمطور ومصمم في العاصمة صنعاء. أمتلك خبرة واسعة في مجالات التصميم الجرافيكي، تطوير الويب، وتصميم الهوية البصرية. أسعى دائمًا لتقديم حلول إبداعية تلبي احتياجات عملائي بأعلى معايير الجودة.</p>
+      
+      <h3 lang="en">Experience & Skills</h3>
+      <p lang="en">I am Metwally Wessapi, an ambitious young Yemeni from Dhamar province, working as a developer and designer in Sana'a. I have extensive experience in graphic design, web development, and visual identity design. I always strive to provide creative solutions that meet my clients' needs with the highest quality standards.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-bullseye"></i>
+      <h3 lang="ar">رؤيتي وأهدافي</h3>
+      <p lang="ar">هدفي هو المساهمة في تطوير المجتمع التقني في اليمن والمنطقة العربية من خلال تقديم حلول رقمية مبتكرة. أسعى لإنشاء علامة تجارية مميزة تعكس جودة العمل والإبداع في كل مشروع. كما أهدف لتدريب الشباب ونقل خبراتي التقنية للأجيال القادمة.</p>
+      
+      <h3 lang="en">My Vision & Goals</h3>
+      <p lang="en">My goal is to contribute to the development of the tech community in Yemen and the Arab region by providing innovative digital solutions. I seek to create a distinctive brand that reflects quality work and creativity in every project. I also aim to train youth and transfer my technical expertise to future generations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- السيرة الذاتية التفصيلية -->
+<section id="cv" class="section">
+  <h2 lang="ar"><i class="fas fa-file-alt"></i> السيرة الذاتية</h2>
+  <h2 lang="en"><i class="fas fa-file-alt"></i> Curriculum Vitae</h2>
+  
+  <div class="cv-section">
+    <h3><i class="fas fa-user"></i> <span lang="ar">المعلومات الشخصية</span><span lang="en">Personal Information</span></h3>
+    <div class="cv-item">
+      <h4 lang="ar">الاسم الكامل: متولي الوصابي</h4>
+      <h4 lang="en">Full Name: Metwally Wessapi</h4>
+      
+      <span class="date" lang="ar">تاريخ الميلاد: 2004</span>
+      <span class="date" lang="en">Date of Birth: 2004</span>
+      
+      <p lang="ar">الجنسية: يمني</p>
+      <p lang="en">Nationality: Yemeni</p>
+      
+      <p lang="ar">الحالة الاجتماعية: أعزب</p>
+      <p lang="en">Marital Status: Single</p>
+    </div>
+  </div>
+  
+  <div class="cv-section">
+    <h3><i class="fas fa-graduation-cap"></i> <span lang="ar">المؤهلات التعليمية</span><span lang="en">Education</span></h3>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4 lang="ar">الثانوية العامة</h4>
+        <h4 lang="en">High School</h4>
+        
+        <span class="date" lang="ar">مدرسة كبود الثانوية - تخرجت في عام 2022</span>
+        <span class="date" lang="en">Koboud Secondary School - Graduated in 2022</span>
+      </div>
+      
+      <div class="timeline-item">
+        <h4 lang="ar">المعاهد والدورات التدريبية</h4>
+        <h4 lang="en">Institutes & Training Courses</h4>
+        
+        <p lang="ar">معهد A2Z – دورات حاسوب ولغات</p>
+        <p lang="en">A2Z Institute - Computer and language courses</p>
+        
+        <p lang="ar">معهد الأمجاد – لغة إنجليزية</p>
+        <p lang="en">Al-Amjad Institute - English language</p>
+        
+        <p lang="ar">معهد الليالي – لغة إنجليزية</p>
+        <p lang="en">Al-Layali Institute - English language</p>
+      </div>
+      
+      <div class="timeline-item">
+        <h4 lang="ar">الجامعة</h4>
+        <h4 lang="en">University</h4>
+        
+        <span class="date" lang="ar">جامعة اليمن الأردنية - كلية الحاسوب - تخصص تقنية معلومات (IT) - سنة 2024</span>
+        <span class="date" lang="en">Yemen Jordanian University - College of Computer - IT specialization - 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="section">
+  <h2 lang="ar"><i class="fas fa-tools"></i> مهاراتي الاحترافية</h2>
+  <h2 lang="en"><i class="fas fa-tools"></i> Professional Skills</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <i class="fas fa-paint-brush"></i>
+      <h3 lang="ar">التصميم الجرافيكي</h3>
+      <p lang="ar">تصميم إبداعي باستخدام Adobe Photoshop, Illustrator, Canva مع الالتزام بأحدث اتجاهات التصميم وضمان الجودة العالية والهوية البصرية المتماسكة.</p>
+      
+      <h3 lang="en">Graphic Design</h3>
+      <p lang="en">Creative design using Adobe Photoshop, Illustrator, Canva, adhering to the latest design trends and ensuring high quality and cohesive visual identity.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-code"></i>
+      <h3 lang="ar">تطوير الويب والبرمجة</h3>
+      <p lang="ar">برمجة وتطوير مواقع وتطبيقات باستخدام HTML, CSS, JavaScript, ++C مع التركيز على الأداء العالي وتجربة المستخدم المثالية.</p>
+      
+      <h3 lang="en">Web Development & Programming</h3>
+      <p lang="en">Programming and development of websites and applications using HTML, CSS, JavaScript, C++, focusing on high performance and optimal user experience.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-drafting-compass"></i>
+      <h3 lang="ar">الهوية البصرية المتكاملة</h3>
+      <p lang="ar">تصميم هوية بصرية متكاملة تشمل الشعارات، البنرات، الملفات التعريفية، مع الحفاظ على الاتساق والتميز في الهوية البصرية للعلامة التجارية.</p>
+      
+      <h3 lang="en">Comprehensive Visual Identity</h3>
+      <p lang="en">Designing a comprehensive visual identity including logos, banners, profiles, while maintaining consistency and distinctiveness in the brand's visual identity.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-chart-line"></i>
+      <h3 lang="ar">الحلول الرقمية المتكاملة</h3>
+      <p lang="ar">تقديم حلول رقمية شاملة تشمل التسويق الإلكتروني، شحن الألعاب والبرامج، وإعداد ملفات PDF تفاعلية لتلبية جميع احتياجاتك الرقمية.</p>
+      
+      <h3 lang="en">Integrated Digital Solutions</h3>
+      <p lang="en">Providing comprehensive digital solutions including digital marketing, game and software recharge, and interactive PDF preparation to meet all your digital needs.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section">
+  <h2 lang="ar"><i class="fas fa-concierge-bell"></i> خدماتي الاحترافية</h2>
+  <h2 lang="en"><i class="fas fa-concierge-bell"></i> Professional Services</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <i class="fas fa-palette"></i>
+      <h3 lang="ar">تصميم شعارات احترافية</h3>
+      <p lang="ar">تصميم شعارات مبتكرة تعبر عن هوية علامتك التجارية بدقة، مع ضمان التميز والاحترافية والجودة العالية التي تترك انطباعًا دائمًا.</p>
+      
+      <h3 lang="en">Professional Logo Design</h3>
+      <p lang="en">Designing innovative logos that accurately express your brand identity, ensuring distinctiveness, professionalism, and high quality that leave a lasting impression.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-laptop-code"></i>
+      <h3 lang="ar">تطوير مواقع إلكترونية</h3>
+      <p lang="ar">تصميم وتطوير مواقع إلكترونية متجاوبة وسريعة وآمنة، مع مراعاة معايير السيو وتجربة المستخدم المثالية لتحقيق أهدافك التجارية.</p>
+      
+      <h3 lang="en">Website Development</h3>
+      <p lang="en">Designing and developing responsive, fast, and secure websites, considering SEO standards and optimal user experience to achieve your business goals.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-id-card"></i>
+      <h3 lang="ar">هوية بصرية متكاملة</h3>
+      <p lang="ar">تصميم هوية بصرية متكاملة تشمل جميع عناصر علامتك التجارية، مع ضمان الاتساق والتميز في كل التفاصيل لتعزيز حضورك الرقمي.</p>
+      
+      <h3 lang="en">Complete Visual Identity</h3>
+      <p lang="en">Designing a comprehensive visual identity that includes all elements of your brand, ensuring consistency and excellence in every detail to enhance your digital presence.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-gamepad"></i>
+      <h3 lang="ar">شحن ألعاب وبرامج</h3>
+      <p lang="ar">خدمة شحن رصيد سريعة وآمنة لأشهر الألعاب والبرامج، مع دعم فني متكامل لضمان تجربة مستخدم سلسة وممتعة.</p>
+      
+      <h3 lang="en">Game & Software Recharge</h3>
+      <p lang="en">Fast and secure recharge service for popular games and software, with comprehensive technical support to ensure a smooth and enjoyable user experience.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-file-pdf"></i>
+      <h3 lang="ar">تصميم ملفات PDF تفاعلية</h3>
+      <p lang="ar">إعداد وتصميم ملفات PDF احترافية وتفاعلية لعرض محتواك بشكل جذاب ومؤثر، مع دعم كافة العناصر التفاعلية والوسائط المتعددة.</p>
+      
+      <h3 lang="en">Interactive PDF Design</h3>
+      <p lang="en">Preparation and design of professional and interactive PDF files to present your content in an attractive and impactful way, with support for all interactive elements and multimedia.</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-mobile-alt"></i>
+      <h3 lang="ar">تصميم تطبيقات الجوال</h3>
+      <p lang="ar">تصميم واجهات مستخدم لتطبيقات الجوال باحترافية عالية، مع التركيز على البساطة والجماليات والوظائفية لتحقيق تجربة مستخدم استثنائية.</p>
+      
+      <h3 lang="en">Mobile App Design</h3>
+      <p lang="en">Designing mobile app user interfaces with high professionalism, focusing on simplicity, aesthetics, and functionality to achieve an exceptional user experience.</p>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <h2 lang="ar"><i class="fas fa-folder-open"></i> مشاريعي المتميزة</h2>
+  <h2 lang="en"><i class="fas fa-folder-open"></i> Featured Projects</h2>
+  
+  <div class="grid">
+    <div class="project-card">
+      <img src="https://source.unsplash.com/600x400/?ecommerce,website" alt="مشروع برمجة">
+      <div class="project-info">
+        <h3 lang="ar">منصة تجارة إلكترونية متكاملة</h3>
+        <p lang="ar">تصميم وتطوير متجر إلكتروني متكامل مع نظام دفع آمن، إدارة مخزون، وتجربة مستخدم استثنائية، مما ساعد العميل على زيادة مبيعاته بنسبة 70%.</p>
+        <a href="#" class="project-link" lang="ar">عرض المشروع <i class="fas fa-arrow-left"></i></a>
+        
+        <h3 lang="en">Integrated E-commerce Platform</h3>
+        <p lang="en">Design and development of a complete e-commerce store with secure payment system, inventory management, and exceptional user experience, helping the client increase sales by 70%.</p>
+        <a href="#" class="project-link" lang="en">View Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <img src="https://source.unsplash.com/600x400/?logo,design" alt="تصميم شعار">
+      <div class="project-info">
+        <h3 lang="ar">هوية بصرية لشركة تقنية ناشئة</h3>
+        <p lang="ar">تصميم هوية بصرية متكاملة لشركة تقنية ناشئة، شملت الشعار، الألوان، الخطوط، وتطبيقات العلامة التجارية على مختلف المنصات.</p>
+        <a href="#" class="project-link" lang="ar">عرض المشروع <i class="fas fa-arrow-left"></i></a>
+        
+        <h3 lang="en">Visual Identity for Tech Startup</h3>
+        <p lang="en">Comprehensive visual identity design for a tech startup, including logo, colors, fonts, and brand applications across various platforms.</p>
+        <a href="#" class="project-link" lang="en">View Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <img src="https://source.unsplash.com/600x400/?mobile,app" alt="تصميم تطبيق">
+      <div class="project-info">
+        <h3 lang="ar">تطبيق جوال لخدمة توصيل طعام</h3>
+        <p lang="ar">تصميم واجهات مستخدم لتطبيق جوال لخدمة توصيل طعام، مع التركيز على البساطة وسهولة الاستخدام وسرعة الوصول للخدمات المطلوبة.</p>
+        <a href="#" class="project-link" lang="ar">عرض المشروع <i class="fas fa-arrow-left"></i></a>
+        
+        <h3 lang="en">Food Delivery Mobile App</h3>
+        <p lang="en">User interface design for a food delivery mobile application, focusing on simplicity, ease of use, and quick access to required services.</p>
+        <a href="#" class="project-link" lang="en">View Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+    
+    <div class="project-card">
+      <img src="https://source.unsplash.com/600x400/?branding,identity" alt="هوية بصرية">
+      <div class="project-info">
+        <h3 lang="ar">تجديد هوية مؤسسة تعليمية</h3>
+        <p lang="ar">إعادة تصميم الهوية البصرية لمؤسسة تعليمية رائدة، مع الحفاظ على القيم الأساسية مع تقديم صورة عصرية وجذابة للجيل الجديد.</p>
+        <a href="#" class="project-link" lang="ar">عرض المشروع <i class="fas fa-arrow-left"></i></a>
+        
+        <h3 lang="en">Rebranding Educational Institution</h3>
+        <p lang="en">Redesigning the visual identity of a leading educational institution, preserving core values while presenting a modern and attractive image for the new generation.</p>
+        <a href="#" class="project-link" lang="en">View Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2 lang="ar"><i class="fas fa-envelope"></i> تواصل معي</h2>
+  <h2 lang="en"><i class="fas fa-envelope"></i> Contact Me</h2>
+  
+  <div class="grid">
+    <div class="card">
+      <i class="fas fa-phone-alt"></i>
+      <h3 lang="ar">الهاتف</h3>
+      <p lang="ar">‎+967 771 241 839</p>
+      <p lang="ar">‎+967 716 225 653</p>
+      
+      <h3 lang="en">Phone</h3>
+      <p lang="en">‎+967 771 241 839</p>
+      <p lang="en">‎+967 716 225 653</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-envelope"></i>
+      <h3 lang="ar">البريد الإلكتروني</h3>
+      <p lang="ar">metwallywessapi@gmail.com</p>
+      <p lang="ar">mwessapi@proton.me</p>
+      
+      <h3 lang="en">Email</h3>
+      <p lang="en">metwallywessapi@gmail.com</p>
+      <p lang="en">mwessapi@proton.me</p>
+    </div>
+    
+    <div class="card">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3 lang="ar">الموقع</h3>
+      <p lang="ar">صنعاء، اليمن</p>
+      <p lang="ar">خدماتي متاحة لجميع أنحاء العالم</p>
+      
+      <h3 lang="en">Location</h3>
+      <p lang="en">Sana'a, Yemen</p>
+      <p lang="en">Services available worldwide</p>
+    </div>
+  </div>
+  
+  <div class="contact-form">
+    <h3 lang="ar">أرسل لي رسالة مباشرة</h3>
+    <h3 lang="en">Send Me a Direct Message</h3>
+    
+    <form id="contactForm">
+      <div class="form-group">
+        <label for="name" lang="ar">الاسم الكامل</label>
+        <label for="name" lang="en">Full Name</label>
+        <input type="text" id="name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="email" lang="ar">البريد الإلكتروني</label>
+        <label for="email" lang="en">Email Address</label>
+        <input type="email" id="email" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="subject" lang="ar">موضوع الرسالة</label>
+        <label for="subject" lang="en">Subject</label>
+        <input type="text" id="subject" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="message" lang="ar">الرسالة</label>
+        <label for="message" lang="en">Message</label>
+        <textarea id="message" required></textarea>
+      </div>
+      
+      <button type="submit" class="submit-btn" lang="ar">
+        <i class="fas fa-paper-plane"></i> أرسل الرسالة
+      </button>
+      <button type="submit" class="submit-btn" lang="en">
+        <i class="fas fa-paper-plane"></i> Send Message
+      </button>
+    </form>
+  </div>
+  
+  <div class="social">
+    <a href="https://github.com/mwsapi" target="_blank" title="GitHub">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.instagram.com/mwsapi100" target="_blank" title="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.facebook.com/profile.php?id=61564961733937" target="_blank" title="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://wa.me/967771241839" target="_blank" title="WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://twitter.com/" target="_blank" title="Twitter">
+      <i class="fab fa-twitter"></i>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3 lang="ar">متولي الوصابي</h3>
+      <h3 lang="en">Metwally Wessapi</h3>
+      <p lang="ar">مطور ومصمم محترف | خبير حلول رقمية</p>
+      <p lang="en">Professional Developer & Designer | Digital Solutions Expert</p>
+    </div>
+    
+    <div class="footer-column">
+      <h3 lang="ar">روابط سريعة</h3>
+      <h3 lang="en">Quick Links</h3>
+      <ul>
+        <li><a href="#about" lang="ar"><i class="fas fa-arrow-left"></i> نبذة عني</a></li>
+        <li><a href="#cv" lang="ar"><i class="fas fa-arrow-left"></i> السيرة الذاتية</a></li>
+        <li><a href="#skills" lang="ar"><i class="fas fa-arrow-left"></i> مهاراتي</a></li>
+        <li><a href="#services" lang="ar"><i class="fas fa-arrow-left"></i> خدماتي</a></li>
+        <li><a href="#contact" lang="ar"><i class="fas fa-arrow-left"></i> تواصل</a></li>
+        
+        <li><a href="#about" lang="en"><i class="fas fa-arrow-right"></i> About Me</a></li>
+        <li><a href="#cv" lang="en"><i class="fas fa-arrow-right"></i> Curriculum Vitae</a></li>
+        <li><a href="#skills" lang="en"><i class="fas fa-arrow-right"></i> My Skills</a></li>
+        <li><a href="#services" lang="en"><i class="fas fa-arrow-right"></i> My Services</a></li>
+        <li><a href="#contact" lang="en"><i class="fas fa-arrow-right"></i> Contact</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-column">
+      <h3 lang="ar">تواصل معي</h3>
+      <h3 lang="en">Contact Me</h3>
+      <ul>
+        <li><i class="fas fa-phone-alt"></i> ‎+967 771 241 839</li>
+        <li><i class="fas fa-envelope"></i> metwallywessapi@gmail.com</li>
+        <li><i class="fas fa-map-marker-alt"></i> <span lang="ar">صنعاء، اليمن</span><span lang="en">Sana'a, Yemen</span></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="copyright">
+    <p lang="ar">جميع الحقوق محفوظة © 2025 متولي الوصابي</p>
+    <p lang="en">© 2025 Metwally Wessapi. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+function toggleLanguage() {
+  document.body.classList.toggle('lang-en');
+  const btn = document.querySelector('button.lang-switch');
+  if (document.body.classList.contains('lang-en')) {
+    btn.innerHTML = '<i class="fas fa-globe"></i> العربية';
+  } else {
+    btn.innerHTML = '<i class="fas fa-globe"></i> English';
+  }
+  
+  // Play sound effect
+  const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+  sound.volume = 0.3;
+  sound.play();
+}
+
+// شريط التقدم
+window.onscroll = function() {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  document.getElementById("myBar").style.width = scrolled + "%";
+  
+  // إضافة تأثير التمرير للبطاقات
+  const cards = document.querySelectorAll('.card, .project-card');
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+    
+    if (cardTop < windowHeight * 0.85) {
+      card.classList.add('visible');
+    }
+  });
+  
+  // تغيير نمط شريط التنقل عند التمرير
+  const navbar = document.getElementById('navbar');
+  if (window.scrollY > 100) {
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+};
+
+// التمرير السلس للروابط
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      window.scrollTo({
+        top: target.offsetTop - 80,
+        behavior: 'smooth'
+      });
+      
+      // Play sound effect
+      const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-modern-technology-select-3124.mp3');
+  sound.volume = 0.3;
+  sound.play();
+    }
+  });
+});
+
+// نموذج الاتصال
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Play sound effect
+  const sound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-unlock-game-notification-253.mp3');
+  sound.volume = 0.3;
+  sound.play();
+  
+  // Show success message
+  alert(document.body.classList.contains('lang-en') ? 
+        'Your message has been sent successfully! I will contact you soon.' : 
+        'تم إرسال رسالتك بنجاح! سأتصل بك قريبًا.');
+  
+  // Reset form
+  this.reset();
+});
+
+// Initialize animations on page load
+window.addEventListener('load', function() {
+  const cards = document.querySelectorAll('.card, .project-card');
+  cards.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.1}s`;
+  });
+  
+  // Add visible class to cards that are already in view
+  setTimeout(() => {
+    const cards = document.querySelectorAll('.card, .project-card');
+    cards.forEach(card => {
+      const cardTop = card.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      
+      if (cardTop < windowHeight * 0.85) {
+        card.classList.add('visible');
+      }
+    });
+  }, 500);
+});
+</script>
+
+</body>
+</html>
